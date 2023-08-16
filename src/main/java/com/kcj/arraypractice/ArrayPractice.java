@@ -84,7 +84,7 @@ public class ArrayPractice {
             average = 1.0 * sum / ints.length;
             return (int) average;
         }
-        throw new IllegalArgumentException("Sum cannot be 0");
+        throw new IllegalArgumentException("sum of int array cannot equal 0");
     }
 
     public static String extractAllOddNumbers(int[] numbers) {
@@ -206,7 +206,7 @@ public class ArrayPractice {
                 break;
             }
             // check if characters are actually letters and not symbols or numbers
-            if (!Character.isDigit(str.charAt(i)) && Character.isLetter(str.charAt(i))) {
+            if (/*!Character.isDigit(str.charAt(i)) && */ Character.isLetter(str.charAt(i))) {
                 b.append(str.charAt(i));
             }
 
@@ -236,10 +236,12 @@ public class ArrayPractice {
         String[] parts = str.split(" ");
         int wordLength = 0;
 
-        // acknowledges all possible symbols and numbers within each part that would prevent a word from being considered a word
+        /* acknowledges all possible symbols and numbers within each element of parts  
+        that would prevent a word from being considered a word through a regular expression */
+        String forbidden = ".*[0-9!@#$%^&*(),.?\\\":{}|<>'\\\\[\\\\]_+=/-].*";
         /* within forbidden, ".*" means zero or more occurences of the preceding element
         and matches any character expect for a newline character */
-        String forbidden = ".*[0-9!@#$%^&*(),.?\\\":{}|<>'\\\\[\\\\]_+=/-].*";
+        
         for (String currentWord : parts) {
             if (!currentWord.matches(forbidden)) {
                 // increment wordLength if currentWord does not contain numbers or symbols
@@ -249,9 +251,10 @@ public class ArrayPractice {
         // get last word
         String lastWord = parts[parts.length - 1];
 
-        // acknowledge if lastWord ends with "." to be marked as a word
-        if (parts[parts.length - 1].endsWith(".")
-                && !lastWord.substring(0, lastWord.length() - 2).matches(forbidden)) {
+        // acknowledge if lastWord ends with ".", "!", "?" to be marked as a word
+        String allowedSymbolsForLastWord = "[!.?]";
+        if (parts[parts.length - 1].matches(".*" + allowedSymbolsForLastWord + ".*")
+                && !lastWord.substring(0, lastWord.length() - 1).matches(forbidden)) {
             wordLength++;
         }
         return wordLength;

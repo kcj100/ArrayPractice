@@ -4,6 +4,9 @@ package com.kcj.arraypractice;
  *
  * @author Kalil
  */
+
+/* did not add a custom method meant to check any IllegalArgumentException's within a 
+method to reduce reduancy for the same conditional statements */
 public class ArrayPractice {
 
     public static void main(String[] args) {
@@ -14,6 +17,8 @@ public class ArrayPractice {
         if (names.length == 0) {
             throw new IllegalArgumentException("String array passed to \"getLastIndex\" method cannot be empty.");
         }
+        /* since indexes for data structures in most programming languages begin at 0, obtaining the last 
+        index must be accounted for and cannot equal the actual length of the array*/
         return names.length - 1;
     }
 
@@ -24,6 +29,8 @@ public class ArrayPractice {
         if (names.length == 1) {
             throw new IllegalArgumentException("String array's length passed to \"getSecondToLastElement\" method must be greater than 1");
         }
+        /* since indexes for data structures in most programming languages begin at 0, obtaining the second to last 
+        index must be accounted for*/
         return names.length - 2;
     }
 
@@ -31,6 +38,7 @@ public class ArrayPractice {
         if (names.length == 0) {
             throw new IllegalArgumentException("String array passed to \"getFirstElement\" method cannot be empty.");
         }
+        // first element starts at index 0
         return names[0];
     }
 
@@ -72,6 +80,7 @@ public class ArrayPractice {
             sum += i;
         }
         if (sum != 0) {
+            // times 1.0 to sum or ints.length for accurate double value
             average = 1.0 * sum / ints.length;
             return (int) average;
         }
@@ -86,6 +95,7 @@ public class ArrayPractice {
         for (int i : numbers) {
             if (i % 2 != 0) {
                 if (b.length() > 0) {
+                    // use comma to separate valid numbers
                     b.append(", ");
                 }
                 b.append(i);
@@ -106,6 +116,7 @@ public class ArrayPractice {
         for (int i : numbers) {
             if (i % 2 == 0) {
                 if (b.length() > 0) {
+                    // use comma to separate valid numbers
                     b.append(", ");
                 }
                 b.append(i);
@@ -140,6 +151,7 @@ public class ArrayPractice {
         if (element.isEmpty() || element.isBlank()) {
             throw new IllegalArgumentException("String element passed to \"getIndexByElement\" method cannot be empty or blank.");
         }
+
         for (int i = 0; i < names.length; i++) {
             if (names[i].equals(element)) {
                 return i;
@@ -149,9 +161,12 @@ public class ArrayPractice {
     }
 
     public static void printOddNumbersInRange(int start, int end) {
+        // check if start and end = 0
         if (start == 0 && end == 0) {
             throw new IllegalArgumentException("Both start and end are 0");
         }
+
+        // check if end number is not less than start number
         if (end < start) {
             throw new IllegalArgumentException("end number cannot be greater than start number");
         }
@@ -166,6 +181,9 @@ public class ArrayPractice {
         if (str.isEmpty() || str.isBlank()) {
             throw new IllegalArgumentException("String passed to \"printGivenStringTimesNumberGiven\" method cannot be empty or blank.");
         }
+        if (n < 0) {
+            throw new IllegalArgumentException("int count passed to \"repeatFirstThreeLetters\" method cannot be less than zero.");
+        }
         for (int i = 0; i < n; i++) {
             System.out.println(str);
         }
@@ -176,19 +194,29 @@ public class ArrayPractice {
         if (str.isEmpty() || str.isBlank()) {
             throw new IllegalArgumentException("String passed to \"repeatFirstThreeLetters\" method cannot be empty or blank.");
         }
+        if (n < 0) {
+            throw new IllegalArgumentException("int count passed to \"repeatFirstThreeLetters\" method cannot be less than zero.");
+        }
+        // use StringBuilder to append letters
         StringBuilder b = new StringBuilder();
+        // find letters using for-loop
         for (int i = 0; i < str.length(); i++) {
-            if (b.toString().length() > 2) {
+            // if b's letter length becomes greater than 2, then break
+            if (b.length() > 2) {
                 break;
             }
-            if (!Character.isDigit(str.charAt(i))) {
+            // check if characters are actually letters and not symbols or numbers
+            if (!Character.isDigit(str.charAt(i)) && Character.isLetter(str.charAt(i))) {
                 b.append(str.charAt(i));
             }
 
         }
+        // make it easier to identify the three letters
         String firstThree = b.toString();
 
+        // second check to make sure firstThree is actually three letters
         if (firstThree.length() > 2) {
+            // print firstThree letters as many times as n equals
             for (int i = 0; i < n; i++) {
                 System.out.println(firstThree);
             }
@@ -204,15 +232,24 @@ public class ArrayPractice {
         if (str.isEmpty() || str.isBlank()) {
             throw new IllegalArgumentException("String passed to \"WordsInAStringCounter\" method cannot be empty or blank.");
         }
+        // breaks up all parts of the given string by spaces into a String array
         String[] parts = str.split(" ");
         int wordLength = 0;
+
+        // acknowledges all possible symbols and numbers within each part that would prevent a word from being considered a word
+        /* within forbidden, ".*" means zero or more occurences of the preceding element
+        and matches any character expect for a newline character */
         String forbidden = ".*[0-9!@#$%^&*(),.?\\\":{}|<>'\\\\[\\\\]_+=/-].*";
-        for (String i : parts) {
-            if (!i.matches(forbidden)) {
+        for (String currentWord : parts) {
+            if (!currentWord.matches(forbidden)) {
+                // increment wordLength if currentWord does not contain numbers or symbols
                 wordLength++;
             }
         }
+        // get last word
         String lastWord = parts[parts.length - 1];
+
+        // acknowledge if lastWord ends with "." to be marked as a word
         if (parts[parts.length - 1].endsWith(".")
                 && !lastWord.substring(0, lastWord.length() - 2).matches(forbidden)) {
             wordLength++;

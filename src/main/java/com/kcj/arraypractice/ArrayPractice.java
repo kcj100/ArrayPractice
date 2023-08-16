@@ -11,8 +11,6 @@ public class ArrayPractice {
 
     public static void main(String[] args) {
         // test here
-        String[] names = {"hi", "guys", "lets", "go"};
-        System.out.println(getLastElement(names));
     }
 
     public static int getLastIndex(String[] names) {

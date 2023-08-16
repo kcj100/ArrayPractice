@@ -11,6 +11,8 @@ public class ArrayPractice {
 
     public static void main(String[] args) {
         // test here
+        String[] names = {"hi", "guys", "lets", "go"};
+        System.out.println(getLastElement(names));
     }
 
     public static int getLastIndex(String[] names) {
@@ -206,7 +208,7 @@ public class ArrayPractice {
                 break;
             }
             // check if characters are actually letters and not symbols or numbers
-            if (/*!Character.isDigit(str.charAt(i)) && */ Character.isLetter(str.charAt(i))) {
+            if (Character.isLetter(str.charAt(i))) {
                 b.append(str.charAt(i));
             }
 
@@ -253,6 +255,8 @@ public class ArrayPractice {
 
         // acknowledge if lastWord ends with ".", "!", "?" to be marked as a word
         String allowedSymbolsForLastWord = "[!.?]";
+        /* ".*" means zero or more occurences of the preceding element
+        and matches any character expect for a newline character */
         if (parts[parts.length - 1].matches(".*" + allowedSymbolsForLastWord + ".*")
                 && !lastWord.substring(0, lastWord.length() - 1).matches(forbidden)) {
             wordLength++;

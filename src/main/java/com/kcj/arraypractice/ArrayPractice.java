@@ -238,12 +238,17 @@ public class ArrayPractice {
 
         for (String currentWord : parts) {
             boolean currentWordIsWord = true;
+            // check if each character of currentWord is a letter
             for (int i = 0; i < currentWord.length(); i++) {
                 if (!Character.isLetter(currentWord.charAt(i))) {
+                    // if not a letter, the word is automatically marked as not a word
+                    // currentWordIsWord will equal false and for-loop to check currentWord will break
                     currentWordIsWord = false;
                     break;
                 }
             }
+            // if currentWordIsWord is not marked false by currentWord character checker for-loop,
+            // currentWordIsWord remains true
             if (currentWordIsWord) {
                 wordLength++;
             }

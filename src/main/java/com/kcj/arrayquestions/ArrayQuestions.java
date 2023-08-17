@@ -1,4 +1,4 @@
-package com.kcj.arraypractice;
+package com.kcj.arrayquestions;
 
 /**
  *
@@ -7,7 +7,7 @@ package com.kcj.arraypractice;
 
 /* did not add a custom method meant to check any IllegalArgumentException's within a 
 method to reduce reduancy for the same conditional statements */
-public class ArrayPractice {
+public class ArrayQuestions {
 
     public static void main(String[] args) {
         // test here

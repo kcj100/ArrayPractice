@@ -236,18 +236,19 @@ public class ArrayPractice {
         String[] parts = str.split(" ");
         int wordLength = 0;
 
-        /* acknowledges all possible symbols and numbers within each element of parts  
-        that would prevent a word from being considered a word through a regular expression */
-        String forbidden = ".*[0-9!@#$%^&*(),.?\\\":{}|<>'\\\\[\\\\]_+=/-].*";
-        /* within forbidden, ".*" means zero or more occurences of the preceding element
-        and matches any character expect for a newline character */
-        
         for (String currentWord : parts) {
-            if (!currentWord.matches(forbidden)) {
-                // increment wordLength if currentWord does not contain numbers or symbols
+            boolean currentWordIsWord = true;
+            for (int i = 0; i < currentWord.length(); i++) {
+                if (!Character.isLetter(currentWord.charAt(i))) {
+                    currentWordIsWord = false;
+                    break;
+                }
+            }
+            if (currentWordIsWord) {
                 wordLength++;
             }
         }
+
         // get last word
         String lastWord = parts[parts.length - 1];
 
@@ -255,8 +256,7 @@ public class ArrayPractice {
         String allowedSymbolsForLastWord = "[!.?]";
         /* ".*" means zero or more occurences of the preceding element
         and matches any character expect for a newline character */
-        if (parts[parts.length - 1].matches(".*" + allowedSymbolsForLastWord + ".*")
-                && !lastWord.substring(0, lastWord.length() - 1).matches(forbidden)) {
+        if (lastWord.matches(".*" + allowedSymbolsForLastWord + ".*")) {
             wordLength++;
         }
         return wordLength;

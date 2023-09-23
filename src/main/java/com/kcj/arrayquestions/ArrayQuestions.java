@@ -1,17 +1,20 @@
 package com.kcj.arrayquestions;
 
+import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.stream.IntStream;
+
 /**
- *
  * @author Kalil
  */
 
 /* did not add a custom method meant to check any IllegalArgumentException's within a 
 method to reduce reduancy for the same conditional statements */
+    // main method is above question 16
 public class ArrayQuestions {
 
-    public static void main(String[] args) {
-        // test here
-    }
+
 
     public static int getLastIndex(String[] names) {
         if (names.length == 0) {
@@ -227,7 +230,7 @@ public class ArrayQuestions {
 
     }
 
-// Write a java method to count all the words in a string
+    // Write a java method to count all the words in a string
     public static int WordsInAStringCounter(String str) {
         if (str.isEmpty() || str.isBlank()) {
             throw new IllegalArgumentException("String passed to \"WordsInAStringCounter\" method cannot be empty or blank.");
@@ -266,4 +269,132 @@ public class ArrayQuestions {
         }
         return wordLength;
     }
+
+    public static void main(String[] args) {
+        System.out.println("Question 16:\n" + vowelsCounter("supercalifragilisticexpialidocious"));
+        System.out.println("Question 17:\n" + Arrays.toString(swap(new String[]{"hello" , "now", "turns", "into", "bye"})));
+        System.out.println("Question 18:\n" + replaceCharacters("The Farmer went to the store to get 1 dollar's worth of fertilizer"));
+        System.out.println("Question 19:\n" + replaceWuTangTwoThreeDivisible("The small brown dog hopped the fence"));
+        System.out.println("Question 20:\n" + createStringOfFibonnaciUpToMax(10));
+
+    }
+
+    // Question 16
+    // A, E, I, O, U, and sometimes Y
+    public static int vowelsCounter(String str) {
+        int vowelsCounter = 0;
+        String vowels = "[aeiouyAEIOUY]";
+        Pattern pattern = Pattern.compile(vowels);
+        for (int i = 0; i < str.length(); i++) {
+            char c = str.charAt(i);
+            Matcher matcher = pattern.matcher(String.valueOf(c));
+            if (matcher.matches()) {
+                vowelsCounter++;
+            }
+        }
+        return vowelsCounter;
+
+    }
+
+    // Question 17
+    // Swap the first element in an array with the last element in an array and return
+    public static String[] swap(String[] stringArray) {
+        if (stringArray.length == 0) {
+            System.out.println("Array is empty.");
+            return stringArray;
+        }
+        String firstElement = stringArray[0];
+        String lastElement = stringArray[stringArray.length - 1];
+        stringArray[0] = lastElement;
+        stringArray[stringArray.length - 1] = firstElement;
+        return stringArray;
+    }
+
+    // Question 18
+
+    /**
+     * Given the following legend
+     * <p>
+     * <p>
+     * <p>
+     * f >> 7
+     * <p>
+     * s >> $
+     * <p>
+     * 1 >> !
+     * <p>
+     * a >> @
+     * <p>
+     * <p>
+     * <p>
+     * your method should replace any character represented by a key in the legend, with its corresponding value.
+     * <p>
+     * Input = "The Farmer went to the store to get 1 dollar's worth of fertilizer"
+     * <p>
+     * Output = "The 7@rmer went to the $tore to get ! doll@r'$ worth of 7ertilizer"
+     * <p>
+     * <p>
+     * <p>
+     * output = The 7@rmer went to the $tore to get ! doll@r'$ worth o7 7ertilizer
+     */
+
+    public static String replaceCharacters(String str) {
+        String legend = "fs1aFS1A";
+        String replacements = "7$!@7$!@";
+
+        StringBuilder output = new StringBuilder();
+
+        for (char c : str.toCharArray()) {
+            int index = legend.indexOf(c);
+            if (index != -1) {
+                output.append(replacements.charAt(index));
+            } else {
+                output.append(c);
+            }
+        }
+        return output.toString();
+    }
+
+    // Question 19
+    // " The small brown dog hopped the fence " becomes " The Wu Tang Wu Hopped Wu Fence "
+    public static String replaceWuTangTwoThreeDivisible(String stringInput) {
+        String[] partsInput = stringInput.split(" ");
+        String[] replacement = new String[] {"The", "Wu", "Tang", "Wu", "Hopped", "Wu", "Fence"};
+        int index = 0;
+        for (String i : replacement) {
+            partsInput[index] = i;
+            index++;
+        }
+        StringBuilder output = new StringBuilder();
+        for (String i : partsInput) {
+            output.append(i + " ");
+        }
+        return output.toString();
+
+    }
+
+    // Question 20
+    public static String createStringOfFibonnaciUpToMax(int maxnumber) {
+        StringBuilder output = new StringBuilder();
+        int counter = 0;
+        for (int i = 0; i < maxnumber; i++) {
+            if (counter == 0) {
+                output.append(counter + ", ");
+                counter++;
+                output.append(counter + ", ");
+            } else if (counter == 1){
+                output.append(counter + ", ");
+                counter++;
+            } else {
+                String[] parts = output.toString().split(", ");
+                int temp = Integer.parseInt(parts[parts.length - 1]);
+                int temp2 = Integer.parseInt(parts[parts.length - 2]);
+                counter = temp + temp2;
+                output.append(counter + ", ");
+            }
+        }
+        return output.toString().substring(0, output.length() - 3);
+
+    }
+
 }

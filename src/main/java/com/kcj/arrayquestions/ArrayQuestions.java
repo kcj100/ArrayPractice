@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 /**
  * @author Kalil
@@ -275,8 +276,7 @@ public class ArrayQuestions {
         System.out.println("Question 17:\n" + Arrays.toString(swap(new String[]{"hello" , "now", "turns", "into", "bye"})));
         System.out.println("Question 18:\n" + replaceCharacters("The Farmer went to the store to get 1 dollar's worth of fertilizer"));
         System.out.println("Question 19:\n" + replaceWuTangTwoThreeDivisible("The small brown dog hopped the fence"));
-        System.out.println("Question 20:\n" + createStringOfFibonnaciUpToMax(10));
-
+        System.out.println("Question 20:\n" + createStringOfFibonnaciUpToMax(20));
     }
 
     // Question 16
@@ -359,18 +359,18 @@ public class ArrayQuestions {
     // " The small brown dog hopped the fence " becomes " The Wu Tang Wu Hopped Wu Fence "
     public static String replaceWuTangTwoThreeDivisible(String stringInput) {
         String[] partsInput = stringInput.split(" ");
-        String[] replacement = new String[] {"The", "Wu", "Tang", "Wu", "Hopped", "Wu", "Fence"};
-        int index = 0;
-        for (String i : replacement) {
-            partsInput[index] = i;
-            index++;
-        }
         StringBuilder output = new StringBuilder();
+        for (int i = 0; i < partsInput.length; i++) {
+                if((i + 1) % 2 == 0) {
+                    partsInput[i] = "Wu";
+                } else if ((i + 1) % 3 == 0){
+                    partsInput[i] = "Tang";
+                }
+        }
         for (String i : partsInput) {
-            output.append(i + " ");
+            output.append(i).append(" ");
         }
         return output.toString();
-
     }
 
     // Question 20
@@ -387,14 +387,14 @@ public class ArrayQuestions {
                 counter++;
             } else {
                 String[] parts = output.toString().split(", ");
+                // take sum of last two numbers
                 int temp = Integer.parseInt(parts[parts.length - 1]);
                 int temp2 = Integer.parseInt(parts[parts.length - 2]);
                 counter = temp + temp2;
                 output.append(counter + ", ");
             }
         }
-        return output.toString().substring(0, output.length() - 3);
-
+        return output.toString().substring(0, output.length() - 2);
     }
 
 }

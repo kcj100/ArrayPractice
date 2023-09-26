@@ -271,13 +271,7 @@ public class ArrayQuestions {
         return wordLength;
     }
 
-    public static void main(String[] args) {
-        System.out.println("Question 16:\n" + vowelsCounter("supercalifragilisticexpialidocious"));
-        System.out.println("Question 17:\n" + Arrays.toString(swap(new String[]{"hello" , "now", "turns", "into", "bye"})));
-        System.out.println("Question 18:\n" + replaceCharacters("The Farmer went to the store to get 1 dollar's worth of fertilizer"));
-        System.out.println("Question 19:\n" + replaceWuTangTwoThreeDivisible("The small brown dog hopped the fence"));
-        System.out.println("Question 20:\n" + createStringOfFibonnaciUpToMax(20));
-    }
+
 
     // Question 16
     // A, E, I, O, U, and sometimes Y
@@ -395,6 +389,14 @@ public class ArrayQuestions {
             }
         }
         return output.toString().substring(0, output.length() - 2);
+    }
+
+    public static void main(String[] args) {
+        System.out.println("Question 16:\n" + vowelsCounter("supercalifragilisticexpialidocious"));
+        System.out.println("Question 17:\n" + Arrays.toString(swap(new String[]{"hello" , "now", "turns", "into", "bye"})));
+        System.out.println("Question 18:\n" + replaceCharacters("The Farmer went to the store to get 1 dollar's worth of fertilizer"));
+        System.out.println("Question 19:\n" + replaceWuTangTwoThreeDivisible("The small brown dog hopped the fence"));
+        System.out.println("Question 20:\n" + createStringOfFibonnaciUpToMax(20));
     }
 
 }
